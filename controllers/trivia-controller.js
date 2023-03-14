@@ -1,45 +1,22 @@
-// Imports
-const express = require('express')
-const router = express.Router()
+import { Trivia } from '../models/trivia.js'
 
-// Import models through models/index.js
-const db = require('../models')
+function index(req, res) {
+  Trivia.find({})
+  .then(trivia => res.json(trivia))
+  .catch(err => {
+    console.log(err)
+    res.status(500).json(err)
+  })
+}
 
-// Middleware to print out the HTTP method and the URL path for every request to our terminal
-router.use((req, res, next) => 
-{    
-	console.log(`${req.method} ${req.originalUrl}`);    
-	next();
-});
+const show = async (req, res) => {
+  try {
+    const trivia = await Trivia.findById(req.params.id)
+    res.status(200).json(trivia);
+  } catch (error) {
+    console.log(error, "Show Controller Error");
+    res.status(500).json(error);
+  }
+};
 
-// Index route (GET HTTP VERB)
-// This route will catch GET requests to /follow/ and respond with all the user posts
-router.get('/', async (req, res) => 
-{ 
-	try 
-	{
-		const trivia = await db.Trivia.find({})
-		.exec()
-		res.status(200).json(trivia)
-	} catch (error) 
-	{
-		return next(error)
-	}
-});
-
-// Show route (GET HTTP VERB)
-// This route will catch GET requests to /follow/index/ and respond with a single user post
-router.get('/:id', async (req, res, next) => 
-{ 
-	try 
-	{
-		const foundTrivia = await db.Post.findById(req.params.id)
-		.exec();
-		res.status(200).json(foundTrivia)
-	} catch (error) 
-	{
-		return next(error)
-	}
-});
-
-module.exports = router
+export {index, show}
