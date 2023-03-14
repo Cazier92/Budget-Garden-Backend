@@ -10,6 +10,16 @@ function index(req, res) {
   })
 }
 
+const show = async (req, res) => {
+  try {
+    const profile = await Profile.findById(req.params.id)
+    res.status(200).json(profile);
+  } catch (error) {
+    console.log(error, "Show Controller Error");
+    res.status(500).json(error);
+  }
+};
+
 function addPhoto(req, res) {
   const imageFile = req.files.photo.path
   Profile.findById(req.params.id)
@@ -29,4 +39,4 @@ function addPhoto(req, res) {
   })
 }
 
-export { index, addPhoto }
+export { index, addPhoto, show }
