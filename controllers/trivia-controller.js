@@ -5,9 +5,6 @@ const router = express.Router()
 // Import models through models/index.js
 const db = require('../models')
 
-// Import token validation and requireToken for Auth
-const { handleValidateOwnership, requireToken } = require("../config/auth");
-
 // Middleware to print out the HTTP method and the URL path for every request to our terminal
 router.use((req, res, next) => 
 {    
