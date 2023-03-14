@@ -4,7 +4,16 @@ const Schema = mongoose.Schema
 
 const profileSchema = new Schema({
   name: String,
-  photo: String
+  photo: String,
+  persFinance: Number,
+  buisEcon: Number,
+  investing: Number,
+  taxes: Number,
+  finHistory: Number,
+  insurance: Number,
+  stock: Number,
+  finInst: Number
+
 },{
   timestamps: true,
 })
