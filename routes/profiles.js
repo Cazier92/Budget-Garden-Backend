@@ -12,5 +12,6 @@ router.get('/:id', profilesCtrl.show)
 /*---------- Protected Routes ----------*/
 router.use(decodeUserFromToken)
 router.put('/:id/add-photo', checkAuth, profilesCtrl.addPhoto)
+router.put('/:id', checkAuth, profilesCtrl.update)
 
 export { router }
