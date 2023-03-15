@@ -20,6 +20,21 @@ const show = async (req, res) => {
   }
 };
 
+const update = async (req, res) => {
+  try 
+	{
+		const updatedProfile = await Profile.findByIdAndUpdate(
+			req.params.id,
+			req.body,
+			{ new: true }
+		)
+		res.status(200).json(updatedProfile)
+	} catch (error) 
+	{
+		res.status(400).json({error: error.message})
+	}
+}
+
 function addPhoto(req, res) {
   const imageFile = req.files.photo.path
   Profile.findById(req.params.id)
@@ -39,4 +54,4 @@ function addPhoto(req, res) {
   })
 }
 
-export { index, addPhoto, show }
+export { index, addPhoto, show, update }
